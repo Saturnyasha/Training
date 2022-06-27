@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "1ae7dbd7-24fa-401b-92a7-a3f436fb9414",
+		"name": "train in postman public REST APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20738567"
+	},
+	"item": [
+		{
+			"name": "Dog Breeds",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const arr = [];",
+							"for (const key in pm.response.json()) {",
+							"    arr.push(key)",
+							"};",
+							"console.log(arr);",
+							"arr.forEach((e) => {",
+							"    pm.test(`response have a ${e}`, () => {",
+							"        pm.expect(pm.response.json()).to.have.a.property(e)",
+							"    })",
+							"})",
+							"// // // //------- 2nd ----------",
+							"const response_msg = pm.response.json().message;",
+							"console.log(response_msg)",
+							"const arr2 = [];",
+							"for (const key in pm.response.json().message){",
+							"    arr2.push(key)",
+							"};",
+							"console.log(arr2);",
+							"arr2.forEach((e) => {",
+							"    pm.test(`response message have a ${e}`, () => {",
+							"        pm.expect(response_msg).to.have.a.property(e)",
+							"    })",
+							"});",
+							"// //------- 3rd ----------",
+							"let resp_poodle = pm.response.json().message.poodle;",
+							"console.log(resp_poodle);",
+							"pm.test(``, () => {",
+							"    pm.expect(pm.response.json().message.poodle).to.deep.include(resp_poodle)",
+							"})",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://dog.ceo/api/breeds/list/all",
+					"protocol": "https",
+					"host": [
+						"dog",
+						"ceo"
+					],
+					"path": [
+						"api",
+						"breeds",
+						"list",
+						"all"
+					],
+					"query": [
+						{
+							"key": "african",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				},
+				"description": "List all dog breeds.\n\nURL - https://dog.ceo/dog-api/documentation/"
+			},
+			"response": []
+		},
+		{
+			"name": "Earthquakes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//1st",
+							"const arr = [];",
+							"for (const key in pm.response.json()) {",
+							"    arr.push(key)",
+							"};",
+							"console.log(arr);",
+							"arr.forEach((e) => {",
+							"    pm.test(`response have a ${e}`, () => {",
+							"        pm.expect(pm.response.json()).to.have.a.property(e)",
+							"    })",
+							"})",
+							"",
+							"//2nd",
+							"",
+							"const arr2 = [];",
+							"for (const key in pm.response.json().metadata) {",
+							"    arr2.push(key)",
+							"};",
+							"console.log(arr2);",
+							"arr2.forEach((e) => {",
+							"    pm.test(`metadata have a ${e}`, () => {",
+							"        pm.expect(pm.response.json().metadata).to.have.a.property(e)",
+							"    })",
+							"})",
+							"",
+							"//3rd",
+							"",
+							"let resp_bbox = pm.response.json().bbox;",
+							"pm.test(`type bbox`, () => {",
+							"    pm.expect(resp_bbox).to.be.a(\"Array\")",
+							"});",
+							"",
+							"// //4th",
+							"",
+							"// let req_format = pm.request.url.query.get(\"format\");",
+							"// let req_starttime = pm.request.url.query.get(\"starttime\");",
+							"// let req_endtime = pm.request.url.query.get(\"endtime\");",
+							"// const req_obj = {",
+							"//     format : req_format,",
+							"//     starttime : req_starttime,",
+							"//     endtime : req_endtime ",
+							"// };",
+							"// console.log(req_obj);",
+							"",
+							"// const resp_obj = {};",
+							"// for (key in req_obj){",
+							"//     if(!isNaN(pm.respomse.json()[key])){",
+							"//         resp_obj[key] = +pm.response.json()[key]",
+							"//     }else{",
+							"//         resp_obj = pm.response.json()[key]",
+							"//     }",
+							"// }",
+							"// pm.test(`req_obj===resp_obj`, () =>{",
+							"//     pm.expect(req_obj).to.deep.equal(resp_obj)",
+							"// })",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2020-01-01&endtime=2020-01-02",
+					"protocol": "https",
+					"host": [
+						"earthquake",
+						"usgs",
+						"gov"
+					],
+					"path": [
+						"fdsnws",
+						"event",
+						"1",
+						"query"
+					],
+					"query": [
+						{
+							"key": "format",
+							"value": "geojson"
+						},
+						{
+							"key": "starttime",
+							"value": "2020-01-01"
+						},
+						{
+							"key": "endtime",
+							"value": "2020-01-02"
+						}
+					]
+				},
+				"description": "Returns a list of eqrthquakes for a time period."
+			},
+			"response": []
+		}
+	]
+}
